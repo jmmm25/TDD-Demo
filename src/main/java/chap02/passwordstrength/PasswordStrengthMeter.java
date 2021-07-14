@@ -1,8 +1,16 @@
-package chap02;
+package chap02.passwordstrength;
 
 public class PasswordStrengthMeter {
     public PasswordStrength meter(String s) {
         if (s == null || s.isEmpty()) return PasswordStrength.INVALID;
+        int metCounts = getMetCriteriaCounts(s);
+        if (metCounts <= 1) return PasswordStrength.WEAK;
+        if (metCounts == 2) return PasswordStrength.NORMAL;
+
+        return PasswordStrength.STRONG;
+    }
+
+    private int getMetCriteriaCounts(String s) {
         int metCounts = 0;
         boolean lengthEnough = s.length() >= 8;
         if (lengthEnough) metCounts++;
@@ -11,10 +19,7 @@ public class PasswordStrengthMeter {
         boolean containsUpp = meetsContainingUppercaseCriteria(s);
         if (containsUpp) metCounts++;
 
-        if (metCounts == 1) return PasswordStrength.WEAK;
-        if (metCounts == 2) return PasswordStrength.NORMAL;
-
-        return PasswordStrength.STRONG;
+        return metCounts;
     }
 
     private boolean meetsContainingUppercaseCriteria(String s) {

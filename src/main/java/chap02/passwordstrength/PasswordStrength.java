@@ -1,4 +1,4 @@
-package chap02;
+package chap02.passwordstrength;
 
 public enum PasswordStrength {
     STRONG,
