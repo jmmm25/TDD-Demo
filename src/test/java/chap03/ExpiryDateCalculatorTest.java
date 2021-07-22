@@ -13,24 +13,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 
 public class ExpiryDateCalculatorTest {
-
     // 납부한 금액 기준으로 서비스 만료일을 계산하는 기능을 TDD로 구현
     @Test
     void pay_10000_won() {
-        LocalDate billingDate = LocalDate.of(2019, 3, 1);
-        int payAmount = 10_000;
+        assertExpiryDate(LocalDate.of(2019, 3, 1), 10_000, LocalDate.of(2019, 4, 1));
+        assertExpiryDate(LocalDate.of(2019, 5, 5), 10_000, LocalDate.of(2019, 6, 5));
+    }
 
+    private void assertExpiryDate(LocalDate billingDate, int payAmount, LocalDate expectedExpiryDate) {
         ExpiryDateCalculator expiryDateCalculator = new ExpiryDateCalculator();
-        LocalDate expiryDate = expiryDateCalculator.calculateExpiryDate(billingDate, payAmount);
-
-        assertEquals(LocalDate.of(2019, 4, 1), expiryDate);
-
-        LocalDate billingDate2 = LocalDate.of(2019, 5, 5);
-        int payAmount2 = 10_000;
-
-        ExpiryDateCalculator expiryDateCalculator2 = new ExpiryDateCalculator();
-        LocalDate expiryDate2 = expiryDateCalculator2.calculateExpiryDate(billingDate2, payAmount2);
-        assertEquals(LocalDate.of(2019, 6, 5), expiryDate2);
+        LocalDate realExpiryDate = expiryDateCalculator.calculateExpiryDate(billingDate, payAmount);
+        assertEquals(expectedExpiryDate, realExpiryDate);
     }
 
 }
