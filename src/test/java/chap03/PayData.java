@@ -6,13 +6,15 @@ import java.time.LocalDate;
 public class PayData {
     private LocalDate billingDate;
     private int payAmount;
+    private LocalDate firstBillingDate;
 
     public PayData() {
     }
 
-    public PayData(LocalDate billingDate, int payAmount) {
+    public PayData(LocalDate billingDate, int payAmount, LocalDate firstBillingDate) {
         this.billingDate = billingDate;
         this.payAmount = payAmount;
+        this.firstBillingDate = firstBillingDate;
     }
 
     public LocalDate getBillingDate() {
@@ -21,6 +23,10 @@ public class PayData {
 
     public int getPayAmount() {
         return payAmount;
+    }
+
+    public LocalDate getFirstBillingDate() {
+        return firstBillingDate;
     }
 
     public static Builder builder() {
@@ -38,6 +44,11 @@ public class PayData {
 
         public Builder payAmount(int payAmount) {
             payData.payAmount = payAmount;
+            return this;
+        }
+
+        public Builder firstBillingDate(LocalDate firstBillingDate) {
+            payData.firstBillingDate = firstBillingDate;
             return this;
         }
 
